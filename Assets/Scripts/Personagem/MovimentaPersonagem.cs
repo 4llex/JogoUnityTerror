@@ -69,6 +69,12 @@ namespace BASA {
         
             controle.Move(velocidadeCai * Time.deltaTime);
 
+            //verifica se o personagem esta abaixado
+            if (estaAbaixado)
+            {
+                ChecaBloqueioAbaixado();
+            }
+
             //chama metodo para abaixar
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
@@ -87,6 +93,12 @@ namespace BASA {
         //metodo para abaixar
         void Abaixa()
         {
+
+            if (levantarBloqueado || estaNoChao == false)
+            {
+                return;
+            }
+
             estaAbaixado = !estaAbaixado;
             if (estaAbaixado)
             {
@@ -97,6 +109,22 @@ namespace BASA {
             {
                 controle.height = alturaLevantado;
                 cameraTransform.localPosition = new Vector3(0, posicaoCameraEmPe, 0);
+            }
+        }
+
+        //metodo que verifica se tem algo em cima e pode levantar
+        void ChecaBloqueioAbaixado()
+        {
+            //Comando para mostrar o vetor Raycast 
+            Debug.DrawRay(cameraTransform.position, Vector3.up * 1.1f, Color.red);
+
+            if (Physics.Raycast(cameraTransform.position, Vector3.up, out hit, 1.1f))
+            {
+                levantarBloqueado = true;
+            }
+            else
+            {
+                levantarBloqueado = false;
             }
         }
 

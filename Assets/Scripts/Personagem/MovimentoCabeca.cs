@@ -20,7 +20,15 @@ public class MovimentoCabeca : MonoBehaviour
     float vertical;
     Vector3 salvaPosicao;
 
- 
+    AudioSource audioSource;
+    public AudioClip[] audioClip;
+    public int indexPassos;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        indexPassos = 0;
+    }
 
     // Update is called once per frame
     void Update()
@@ -60,6 +68,22 @@ public class MovimentoCabeca : MonoBehaviour
         }
 
         transform.localPosition = salvaPosicao;
+        SomPassos();
 
+    }
+
+    //coloca som nos passos
+    void SomPassos()
+    {
+        if(cortaOnda <= -0.95f && !audioSource.isPlaying)
+        {
+            audioSource.clip = audioClip[indexPassos];
+            audioSource.Play();
+            indexPassos++;
+            if(indexPassos >= 4)
+            {
+                indexPassos = 0;
+            }
+        }
     }
 }
