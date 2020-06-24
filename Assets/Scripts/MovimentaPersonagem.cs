@@ -21,11 +21,24 @@ namespace BASA {
 
         Vector3 velocidadeCai;
 
+        public Transform cameraTransform;
+        public bool estaAbaixado;
+        public bool levantarBloqueado;
+        public float alturaLevantado, alturaAbaixado, posicaoCameraEmPe, posicaoCameraAbaixado;
+        RaycastHit hit;
+
         // Start is called before the first frame update
         void Start()
         {
             // controle obtem caractercontroller do personagem
             controle = GetComponent<CharacterController>();
+
+            // personagem começa em pe
+            estaAbaixado = false;
+
+            //anexxa camera ao  Camera Trasnform
+            cameraTransform = Camera.main.transform;
+
         }
 
         // Update is called once per frame
@@ -55,6 +68,12 @@ namespace BASA {
             velocidadeCai.y += gravidade * Time.deltaTime;
         
             controle.Move(velocidadeCai * Time.deltaTime);
+
+            //chama metodo para abaixar
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Abaixa();
+            }
        
         }
 
@@ -63,6 +82,22 @@ namespace BASA {
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(checaChao.position, raioEsfera);
+        }
+
+        //metodo para abaixar
+        void Abaixa()
+        {
+            estaAbaixado = !estaAbaixado;
+            if (estaAbaixado)
+            {
+                controle.height = alturaAbaixado;
+                cameraTransform.localPosition = new Vector3(0, posicaoCameraAbaixado, 0);
+            }
+            else
+            {
+                controle.height = alturaLevantado;
+                cameraTransform.localPosition = new Vector3(0, posicaoCameraEmPe, 0);
+            }
         }
 
     }
