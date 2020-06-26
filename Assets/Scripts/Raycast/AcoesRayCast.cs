@@ -52,14 +52,14 @@ namespace BASA {
             rayCastScript.objArrasta.GetComponent<Rigidbody>().isKinematic = true;
             rayCastScript.objArrasta.GetComponent<Rigidbody>().useGravity = false;
             rayCastScript.objArrasta.transform.SetParent(transform);
-            rayCastScript.objArrasta.transform.localPosition = new Vector3(0, 0, 3);
+            rayCastScript.objArrasta.transform.localPosition = new Vector3(0, 0, 1.5f);
             rayCastScript.objArrasta.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         }
 
         void Soltar()
         {
-            rayCastScript.objArrasta.transform.localPosition = new Vector3(0, 0, 3);
+            rayCastScript.objArrasta.transform.localPosition = new Vector3(0, 0, 1.5f);
             rayCastScript.objArrasta.transform.SetParent(null);
             rayCastScript.objArrasta.GetComponent<Rigidbody>().isKinematic = false;
             rayCastScript.objArrasta.GetComponent<Rigidbody>().useGravity = true;

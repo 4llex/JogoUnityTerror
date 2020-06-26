@@ -29,11 +29,13 @@ namespace BASA
                     if(hit.transform.gameObject.tag == "objArrasta")
                     {
                         objArrasta = hit.transform.gameObject;
+                        objPega = null;
                     }
 
                     if (hit.transform.gameObject.tag == "objPega")
                     {
                         objPega = hit.transform.gameObject;
+                        objArrasta = null;
                     }
                 }
                 else
