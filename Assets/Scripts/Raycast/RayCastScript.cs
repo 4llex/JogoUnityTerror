@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace BASA
@@ -13,7 +14,7 @@ namespace BASA
         public GameObject objArrasta, objPega;
         RaycastHit hit;
 
-        
+        public Text textBotao, textInfo;
 
         // Update is called once per frame
         void Update()
@@ -30,18 +31,24 @@ namespace BASA
                     {
                         objArrasta = hit.transform.gameObject;
                         objPega = null;
+                        textBotao.text = "[E]";
+                        textInfo.text = "Agarra/Solta";
                     }
 
                     if (hit.transform.gameObject.tag == "objPega")
                     {
                         objPega = hit.transform.gameObject;
                         objArrasta = null;
+                        textBotao.text = "[E]";
+                        textInfo.text = "Pegar";
                     }
                 }
                 else
                 {
                     objPega = null;
                     objArrasta = null;
+                    textBotao.text = "";
+                    textInfo.text = "";
                 }
             }
         }
