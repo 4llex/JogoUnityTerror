@@ -4763,6 +4763,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4820,7 +4821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7813221421777675221}
-  - component: {fileID: 5877214385976429046}
+  - component: {fileID: 8712887375908767974}
   m_Layer: 0
   m_Name: ObjFumaca
   m_TagString: Untagged
@@ -4843,7 +4844,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5877214385976429046
+--- !u!114 &8712887375908767974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4852,7 +4853,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3126457868495115394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ace052129e02ffb4291dc14b1690fcf8, type: 3}
+  m_Script: {fileID: 11500000, guid: 01970a97bbd78394f94b0c7a28a88ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tempo: 1
