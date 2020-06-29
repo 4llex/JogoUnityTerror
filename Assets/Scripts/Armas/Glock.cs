@@ -15,6 +15,8 @@ public class Glock : MonoBehaviour
     public GameObject efeitoTiro;
     public GameObject posEfeitoTiro;
 
+    public ParticleSystem rastroBala;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class Glock : MonoBehaviour
         {
             if (!estaAtirando)
             {
+                rastroBala.Play();
                 estaAtirando = true;
                 StartCoroutine(Atirando());
             }
