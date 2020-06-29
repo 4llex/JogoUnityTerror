@@ -378,9 +378,9 @@ MonoBehaviour:
   estaAbaixado: 0
   levantarBloqueado: 0
   alturaLevantado: 2
-  alturaAbaixado: 1.5
+  alturaAbaixado: 1
   posicaoCameraEmPe: 1
-  posicaoCameraAbaixado: 0.5
+  posicaoCameraAbaixado: 0.15
 --- !u!143 &184542748
 CharacterController:
   m_ObjectHideFlags: 0
