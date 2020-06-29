@@ -3,33 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace BASA { 
+
     public class MovimentaPersonagem : MonoBehaviour
     {
+        [Header("Config. Personagem")]
         public CharacterController controle;
-        //velocidade de movimento do pers.
         [Tooltip("velocidaded de movimentação")]
         public float velocidade = 6f;
         [Tooltip("altura do pulo")]
         public float alturaPulo = 3f;
         [Tooltip("gravidade")]
         public float gravidade = -20f;
+        public bool estaCorrendo;
 
+        [Header("Verifica Chao")]
         public Transform checaChao;
         public float raioEsfera = 0.4f;
         public LayerMask chaoMask;
         public bool estaNoChao;
-
         Vector3 velocidadeCai;
 
+        [Header("Verifica Abaixado")]
         public Transform cameraTransform;
         public bool estaAbaixado;
         public bool levantarBloqueado;
         public float alturaLevantado, alturaAbaixado, posicaoCameraEmPe, posicaoCameraAbaixado;
         RaycastHit hit;
-
         float velocidadeCorrente = 1f;
 
-        public bool estaCorrendo;
+        [Header("Status Personagem")]
+        public float hp = 100;
+        public float stamina = 100;
+
 
         // Start is called before the first frame update
         void Start()
@@ -90,11 +95,16 @@ namespace BASA {
             //fazer o personagem correr
             if(Input.GetKey(KeyCode.LeftShift) && estaNoChao && !estaAbaixado)
             {
+                estaCorrendo = true;
                 velocidade = 9;
+                stamina -= 9;
+                stamina = Mathf.Clamp(stamina, 0, 100);
             }
             else
             {
                 estaCorrendo = false;
+                stamina += 0.1f;
+                stamina = Mathf.Clamp(stamina, 0, 100);
             }
 
             //chama metodo para abaixar
