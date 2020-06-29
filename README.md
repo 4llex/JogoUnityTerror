@@ -7,3 +7,9 @@ Ctrl: abaixa
 segura LeftShif: correr
 botao direito do mouse: atirar
 space: pula
+
+
+
+
+
+* se der bug, remover sript respiração do personagem

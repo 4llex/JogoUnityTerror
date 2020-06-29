@@ -34,13 +34,16 @@ namespace BASA {
         [Header("Status Personagem")]
         public float hp = 100;
         public float stamina = 100;
+        public bool cansado;
+        public Respiracao scriptResp;
 
 
         // Start is called before the first frame update
         void Start()
         {
-            // 
+            
             estaCorrendo = false;
+            cansado = false;
 
             // controle obtem caractercontroller do personagem
             controle = GetComponent<CharacterController>();
@@ -59,7 +62,9 @@ namespace BASA {
             Verificacoes();
             MovimentoAbaixa();
             Inputs();
-       
+            CondicaoPlayer();
+
+
         }
 
         /// <summary>
@@ -93,11 +98,11 @@ namespace BASA {
         void Inputs()
         {
             //fazer o personagem correr
-            if(Input.GetKey(KeyCode.LeftShift) && estaNoChao && !estaAbaixado)
+            if(Input.GetKey(KeyCode.LeftShift) && estaNoChao && !estaAbaixado && !cansado)
             {
                 estaCorrendo = true;
                 velocidade = 9;
-                stamina -= 9;
+                stamina -= 0.3f;
                 stamina = Mathf.Clamp(stamina, 0, 100);
             }
             else
@@ -177,6 +182,20 @@ namespace BASA {
             else
             {
                 levantarBloqueado = false;
+            }
+        }
+
+        void CondicaoPlayer()
+        {
+            if(stamina == 0)
+            {
+                cansado = true;
+                scriptResp.forcaResp = 5;
+            }
+
+            if(stamina > 20)
+            {
+                cansado = false;
             }
         }
 
