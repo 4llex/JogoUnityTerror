@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BASA;
 
 //cabeca indo pra cima e pra baixo conforme o personagem anda
 public class MovimentoCabeca : MonoBehaviour
@@ -24,8 +25,11 @@ public class MovimentoCabeca : MonoBehaviour
     public AudioClip[] audioClip;
     public int indexPassos;
 
+    MovimentaPersonagem scriptMovimenta;
+
     void Start()
     {
+        scriptMovimenta = GetComponentInParent<MovimentaPersonagem>();
         audioSource = GetComponent<AudioSource>();
         indexPassos = 0;
     }
@@ -69,13 +73,14 @@ public class MovimentoCabeca : MonoBehaviour
 
         transform.localPosition = salvaPosicao;
         SomPassos();
+        AtualizaCabeca();
 
     }
 
     //coloca som nos passos
     void SomPassos()
     {
-        if(cortaOnda <= -0.95f && !audioSource.isPlaying)
+        if(cortaOnda <= -0.95f && !audioSource.isPlaying && scriptMovimenta.estaNoChao)
         {
             audioSource.clip = audioClip[indexPassos];
             audioSource.Play();
@@ -84,6 +89,25 @@ public class MovimentoCabeca : MonoBehaviour
             {
                 indexPassos = 0;
             }
+        }
+    }
+
+    void AtualizaCabeca()
+    {
+        if (scriptMovimenta.estaCorrendo)
+        {
+            velocidade = 0.25f;
+            forca = 0.25f;
+        }
+        else if (scriptMovimenta.estaAbaixado)
+        {
+            velocidade = 0.15f;
+            forca = 0.11f;
+        }
+        else
+        {
+            velocidade = 0.18f;
+            forca = 0.15f;
         }
     }
 }

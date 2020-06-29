@@ -29,9 +29,14 @@ namespace BASA {
 
         float velocidadeCorrente = 1f;
 
+        public bool estaCorrendo;
+
         // Start is called before the first frame update
         void Start()
         {
+            // 
+            estaCorrendo = false;
+
             // controle obtem caractercontroller do personagem
             controle = GetComponent<CharacterController>();
 
@@ -82,6 +87,16 @@ namespace BASA {
 
         void Inputs()
         {
+            //fazer o personagem correr
+            if(Input.GetKey(KeyCode.LeftShift) && estaNoChao && !estaAbaixado)
+            {
+                velocidade = 9;
+            }
+            else
+            {
+                estaCorrendo = false;
+            }
+
             //chama metodo para abaixar
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
