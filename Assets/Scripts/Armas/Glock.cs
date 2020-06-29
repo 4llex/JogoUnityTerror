@@ -16,6 +16,7 @@ public class Glock : MonoBehaviour
     public GameObject posEfeitoTiro;
 
     public ParticleSystem rastroBala;
+    public AudioSource audioArma;
 
 
     // Start is called before the first frame update
@@ -23,19 +24,31 @@ public class Glock : MonoBehaviour
     {
         estaAtirando = false;
         anim = GetComponent<Animator>();
+        audioArma = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (anim.GetBool("ocorreAcao"))
+        {
+            return;
+        }
+
         if (Input.GetButtonDown("Fire1"))
         {
             if (!estaAtirando)
             {
+                audioArma.Play();
                 rastroBala.Play();
                 estaAtirando = true;
                 StartCoroutine(Atirando());
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            anim.Play("Recarrega");
         }
     }
 
