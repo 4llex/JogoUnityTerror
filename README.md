@@ -5,10 +5,11 @@ Pegar obj: E
 soltar obj: E
 Ctrl: abaixa
 segura LeftShif: correr
-botao direito do mouse: atirar
+botao esquerdo do mouse: atirar
 space: pula
 R: recarrega
-Q: 
+Q: Manual ou automatica
+botao esquerdo do mouse: mira
 
 
 

@@ -98,6 +98,17 @@ public class Glock : MonoBehaviour
             carregador--;
             municao = 17;
         }
+
+        if (Input.GetButton("Fire2"))
+        {
+            anim.SetBool("mira", true);
+            posUI.transform.localPosition = new Vector3(0f, 0.1f, -0.2f);
+        }
+        else
+        {
+            anim.SetBool("mira", false);
+            posUI.transform.localPosition = new Vector3(-0.02f, 0.1f, -0.2f);
+        }
     }
 
     IEnumerator Atirando()
