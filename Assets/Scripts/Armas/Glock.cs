@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BASA;
 
 public class Glock : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class Glock : MonoBehaviour
     public int carregador = 3;
     public int municao = 17;
 
+    UIManager uiScript;
+    public GameObject posUI;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,11 +33,15 @@ public class Glock : MonoBehaviour
         estaAtirando = false;
         anim = GetComponent<Animator>();
         audioArma = GetComponent<AudioSource>();
+        uiScript = GameObject.FindWithTag("uiManager").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        uiScript.municao.transform.position = Camera.main.WorldToScreenPoint(posUI.transform.position);
+        uiScript.municao.text = municao.ToString() + "/" + carregador.ToString();
+
         if (anim.GetBool("ocorreAcao"))
         {
             return;

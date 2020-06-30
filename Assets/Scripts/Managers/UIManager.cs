@@ -9,7 +9,10 @@ namespace BASA {
 
         public Slider sliderHP, sliderStamina;
         public MovimentaPersonagem scriptMovimenta;
-
+        public Text municao;
+        public Image imageModoTiro;
+        public Sprite[] spriteModoTiro;
+             
         // Start is called before the first frame update
         void Start()
         {
