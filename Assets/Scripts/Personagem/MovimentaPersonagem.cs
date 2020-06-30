@@ -15,6 +15,9 @@ namespace BASA {
         [Tooltip("gravidade")]
         public float gravidade = -20f;
         public bool estaCorrendo;
+        public AudioClip[] audiosPulo;
+        AudioSource audioPulo;
+        bool noAr;
 
         [Header("Verifica Chao")]
         public Transform checaChao;
@@ -54,6 +57,8 @@ namespace BASA {
             //anexxa camera ao  Camera Trasnform
             cameraTransform = Camera.main.transform;
 
+            audioPulo = GetComponent<AudioSource>();
+            noAr = false;
         }
 
         // Update is called once per frame
@@ -63,7 +68,7 @@ namespace BASA {
             MovimentoAbaixa();
             Inputs();
             CondicaoPlayer();
-
+            SomPulo();
 
         }
 
@@ -122,6 +127,8 @@ namespace BASA {
             if (Input.GetButtonDown("Jump") && estaNoChao)
             {
                 velocidadeCai.y = Mathf.Sqrt(alturaPulo * -2f * gravidade);
+                audioPulo.clip = audiosPulo[0];
+                audioPulo.Play();
             }
         }
 
@@ -196,6 +203,21 @@ namespace BASA {
             if(stamina > 20)
             {
                 cansado = false;
+            }
+        }
+
+        void SomPulo()
+        {
+            if (!estaNoChao)
+            {
+                noAr = true;
+            }
+
+            if(estaNoChao && noAr)
+            {
+                noAr = false;
+                audioPulo.clip = audiosPulo[1];
+                audioPulo.Play();
             }
         }
 
