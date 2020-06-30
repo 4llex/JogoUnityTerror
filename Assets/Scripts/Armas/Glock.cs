@@ -25,9 +25,10 @@ public class Glock : MonoBehaviour
 
     UIManager uiScript;
     public GameObject posUI;
+    MovimentaArma movimentaArmaScript;
 
     public bool automatico;
-
+    public float numeroAleatorioMira;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class Glock : MonoBehaviour
         anim = GetComponent<Animator>();
         audioArma = GetComponent<AudioSource>();
         uiScript = GameObject.FindWithTag("uiManager").GetComponent<UIManager>();
+        movimentaArmaScript = GetComponentInParent<MovimentaArma>();
     }
 
     // Update is called once per frame
@@ -103,11 +105,19 @@ public class Glock : MonoBehaviour
         {
             anim.SetBool("mira", true);
             posUI.transform.localPosition = new Vector3(0f, 0.1f, -0.2f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 45, Time.deltaTime * 10);
+            uiScript.mira.gameObject.SetActive(false);
+            movimentaArmaScript.valor = 0.01f;
+            numeroAleatorioMira = 0f;
         }
         else
         {
             anim.SetBool("mira", false);
             posUI.transform.localPosition = new Vector3(-0.02f, 0.1f, -0.2f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, Time.deltaTime * 10);
+            uiScript.mira.gameObject.SetActive(true);
+            movimentaArmaScript.valor = 0.05f;
+            numeroAleatorioMira = 0.05f;
         }
     }
 
@@ -122,7 +132,7 @@ public class Glock : MonoBehaviour
         GameObject efeitoTiroObj = Instantiate(efeitoTiro, posEfeitoTiro.transform.position, posEfeitoTiro.transform.rotation);
         efeitoTiroObj.transform.parent = posEfeitoTiro.transform;
 
-        if (Physics.Raycast(new Vector3(ray.origin.x + Random.Range(-0.05f, 0.05f), ray.origin.y + Random.Range(-0.05f, 0.05f), ray.origin.z), 
+        if (Physics.Raycast(new Vector3(ray.origin.x + Random.Range(-numeroAleatorioMira, numeroAleatorioMira), ray.origin.y + Random.Range(-numeroAleatorioMira, numeroAleatorioMira), ray.origin.z), 
             Camera.main.transform.forward, out hit))
         {
             InstanciaEfeitos();

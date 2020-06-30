@@ -12,6 +12,7 @@ namespace BASA {
         public Text municao;
         public Image imageModoTiro;
         public Sprite[] spriteModoTiro;
+        public Image mira;
              
         // Start is called before the first frame update
         void Start()
