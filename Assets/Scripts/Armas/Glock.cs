@@ -17,6 +17,10 @@ public class Glock : MonoBehaviour
 
     public ParticleSystem rastroBala;
     public AudioSource audioArma;
+    public AudioClip[] sonsArma;
+
+    public int carregador = 3;
+    public int municao = 17;
 
 
     // Start is called before the first frame update
@@ -37,18 +41,34 @@ public class Glock : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            if (!estaAtirando)
+            if (!estaAtirando && municao > 0)
             {
+                municao--;
+                audioArma.clip = sonsArma[0];
                 audioArma.Play();
                 rastroBala.Play();
                 estaAtirando = true;
                 StartCoroutine(Atirando());
             }
+            else if(!estaAtirando && municao == 0 && carregador > 0)
+            {
+                anim.Play("Recarrega");
+                carregador--;
+                municao = 17;
+            }
+            else if(municao == 0 && carregador == 0)
+            {
+                audioArma.clip = sonsArma[3];
+                audioArma.Play();
+
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && carregador > 0 && municao < 17)
         {
             anim.Play("Recarrega");
+            carregador--;
+            municao = 17;
         }
     }
 
@@ -92,4 +112,14 @@ public class Glock : MonoBehaviour
         buracoObj.transform.parent = hit.transform;
     }
 
+    void sonMagazine()
+    {
+        audioArma.clip = sonsArma[1];
+        audioArma.Play();
+    }
+    void SomUp()
+    {
+        audioArma.clip = sonsArma[2];
+        audioArma.Play();
+    }
 }
