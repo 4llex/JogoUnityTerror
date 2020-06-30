@@ -17,6 +17,8 @@ namespace BASA {
         void Start()
         {
             scriptMovimenta = GameObject.FindWithTag("Player").GetComponent<MovimentaPersonagem>();
+            municao.enabled = true;
+            imageModoTiro.enabled = true;
         }
 
         // Update is called once per frame

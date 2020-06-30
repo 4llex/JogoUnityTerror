@@ -7,7 +7,8 @@ Ctrl: abaixa
 segura LeftShif: correr
 botao direito do mouse: atirar
 space: pula
-
+R: recarrega
+Q: 
 
 
 

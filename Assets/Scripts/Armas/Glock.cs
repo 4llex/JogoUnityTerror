@@ -26,10 +26,13 @@ public class Glock : MonoBehaviour
     UIManager uiScript;
     public GameObject posUI;
 
+    public bool automatico;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        automatico = false;
         estaAtirando = false;
         anim = GetComponent<Animator>();
         audioArma = GetComponent<AudioSource>();
@@ -47,7 +50,23 @@ public class Glock : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            audioArma.clip = sonsArma[1];
+            audioArma.Play(2);
+            automatico = !automatico;
+
+            if (automatico)
+            {
+                uiScript.imageModoTiro.sprite = uiScript.spriteModoTiro[1];
+            }
+            else
+            {
+                uiScript.imageModoTiro.sprite = uiScript.spriteModoTiro[0];
+            }
+        }
+
+        if (Input.GetButtonDown("Fire1") || automatico?Input.GetButton("Fire1"):false)
         {
             if (!estaAtirando && municao > 0)
             {
@@ -57,6 +76,7 @@ public class Glock : MonoBehaviour
                 rastroBala.Play();
                 estaAtirando = true;
                 StartCoroutine(Atirando());
+                //audioArma.Stop();
             }
             else if(!estaAtirando && municao == 0 && carregador > 0)
             {
