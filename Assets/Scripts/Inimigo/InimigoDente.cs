@@ -13,6 +13,7 @@ public class InimigoDente : MonoBehaviour
     public float velocidade = 5;
     Animator anim;
     public int hp = 100;
+    Ragdoll ragScript;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,9 @@ public class InimigoDente : MonoBehaviour
         navMesh = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
+        ragScript = GetComponent<Ragdoll>();
+
+        ragScript.IniciaRagdoll();
     }
 
     // Update is called once per frame
@@ -82,13 +86,13 @@ public class InimigoDente : MonoBehaviour
 
     void CorrigeRigEntra()
     {
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        ragScript.rigid.isKinematic = true;
+        ragScript.rigid.velocity = Vector3.zero;
     }
 
     void CorrigeRigSai()
     {
-        GetComponent<Rigidbody>().isKinematic = false;
+        ragScript.rigid.isKinematic = false;
     }
 
     public void LevouDano(int dano)
