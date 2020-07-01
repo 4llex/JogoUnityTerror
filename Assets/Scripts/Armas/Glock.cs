@@ -83,7 +83,7 @@ public class Glock : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             audioArma.clip = sonsArma[1];
-            audioArma.Play(2);
+            audioArma.Play();
             automatico = !automatico;
 
             if (automatico)
