@@ -12,10 +12,10 @@ public class Ragdoll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigid = GetComponent<Rigidbody>();
     }
 
-    public void IniciaRagdoll()
+    public void DesativaRagdoll()
     {
         Rigidbody[] rigs = GetComponentsInChildren<Rigidbody>();
 
@@ -34,5 +34,27 @@ public class Ragdoll : MonoBehaviour
             col.isTrigger = true;
             ragdollColliders.Add(col);
         }
+    }
+
+    public void AtivaRagdoll()
+    {
+
+        for(int i=0; i < ragdollRigids.Count; i++)
+        {
+            ragdollRigids[i].isKinematic = false;
+            ragdollColliders[i].isTrigger = false;
+        }
+
+        rigid.isKinematic = true;
+        GetComponent<CapsuleCollider>().isTrigger = true;
+        StartCoroutine("FinalizaAnimacao");
+
+    }
+
+    IEnumerator FinalizaAnimacao()
+    {
+        yield return new WaitForEndOfFrame();
+        GetComponent<Animator>().enabled = false;
+        this.enabled = false;
     }
 }

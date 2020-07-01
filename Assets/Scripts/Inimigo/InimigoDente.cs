@@ -15,6 +15,8 @@ public class InimigoDente : MonoBehaviour
     public int hp = 100;
     Ragdoll ragScript;
 
+    public bool estaMorto;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,8 @@ public class InimigoDente : MonoBehaviour
         anim = GetComponent<Animator>();
         ragScript = GetComponent<Ragdoll>();
 
-        ragScript.IniciaRagdoll();
+        estaMorto = false;
+        ragScript.DesativaRagdoll();
     }
 
     // Update is called once per frame
@@ -33,6 +36,14 @@ public class InimigoDente : MonoBehaviour
 
         VaiAtrasJogador();
         OhaParaPlayer();
+
+        if( hp <= 0 && !estaMorto)
+        {
+            estaMorto = true;
+            ParaDeAndar();
+            ragScript.AtivaRagdoll();
+            this.enabled = false;
+        }
     }
 
     void OhaParaPlayer()
@@ -100,4 +111,9 @@ public class InimigoDente : MonoBehaviour
         hp -= dano;
     }
 
+    void ParaDeAndar()
+    {
+        navMesh.isStopped = true;
+        anim.SetBool("podeAndar", false);
+    }
 }
