@@ -6289,7 +6289,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 09e4fb9993dbc9d44bb82893d46f84eb, type: 3}
   - {fileID: 8300000, guid: 54efc5de3eeeb534aaf6681ea5c9d98e, type: 3}
   carregador: 3
-  municao: 5
+  municao: 17
   posUI: {fileID: 2144303251}
   automatico: 0
   numeroAleatorioMira: 0
@@ -6524,6 +6524,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1013231039}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &768775184 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: c0e4d8ef47545754a833d76aaccb100c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1013231039}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &768775185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6540,7 +6546,7 @@ MonoBehaviour:
   player: {fileID: 0}
   distanciaDoAtaque: 2
   distanciaDoPlayer: 0
-  velocidade: 2
+  velocidade: 4
 --- !u!195 &768775186
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7163,6 +7169,59 @@ MonoBehaviour:
   valor: 0.01
   suavizaValor: 6
   valorMaximo: 0.6
+--- !u!1 &1214397942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1214397943}
+  - component: {fileID: 1214397945}
+  - component: {fileID: 1214397944}
+  m_Layer: 0
+  m_Name: CabecaDesliza
+  m_TagString: cabecaDesliza
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1214397943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214397942}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.508, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 768775184}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1214397944
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214397942}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1214397945
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214397942}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1267393354
 GameObject:
   m_ObjectHideFlags: 0

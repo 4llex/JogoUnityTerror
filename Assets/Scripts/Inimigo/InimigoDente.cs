@@ -27,6 +27,14 @@ public class InimigoDente : MonoBehaviour
         distanciaDoPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         VaiAtrasJogador();
+        OhaParaPlayer();
+    }
+
+    void OhaParaPlayer()
+    {
+        Vector3 direcaoOlha = player.transform.position - transform.position;
+        Quaternion rotacao = Quaternion.LookRotation(direcaoOlha);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotacao, Time.deltaTime * 300);
     }
 
     void VaiAtrasJogador()
@@ -40,7 +48,7 @@ public class InimigoDente : MonoBehaviour
             anim.SetBool("podeAndar", false);
             anim.SetBool("paraAtaque", false);
         }
-        if (distanciaDoPlayer >= 5)
+        if (distanciaDoPlayer >= 3)
         {
             anim.SetBool("paraAtaque", true);
 
@@ -50,6 +58,23 @@ public class InimigoDente : MonoBehaviour
             navMesh.isStopped = false;
             navMesh.SetDestination(player.transform.position);
             anim.ResetTrigger("ataca");
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 }
