@@ -221,5 +221,13 @@ namespace BASA {
             }
         }
 
+        void OntriggerStay(Collider col)
+        {
+            if (col.gameObject.CompareTag("cabecaDesliza"))
+            {
+                controle.SimpleMove(transform.forward * 1000 * Time.deltaTime);
+            }
+        }
+
     }
 }

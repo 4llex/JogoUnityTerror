@@ -47,6 +47,7 @@ public class InimigoDente : MonoBehaviour
             anim.SetTrigger("ataca");
             anim.SetBool("podeAndar", false);
             anim.SetBool("paraAtaque", false);
+            CorrigeRigEntra();
         }
         if (distanciaDoPlayer >= 3)
         {
@@ -58,6 +59,7 @@ public class InimigoDente : MonoBehaviour
             navMesh.isStopped = false;
             navMesh.SetDestination(player.transform.position);
             anim.ResetTrigger("ataca");
+            CorrigeRigSai();
         }
     }
 
@@ -65,8 +67,7 @@ public class InimigoDente : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            GetComponent<Rigidbody>().isKinematic = true;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            CorrigeRigEntra();
         }
     }
 
@@ -74,7 +75,18 @@ public class InimigoDente : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            GetComponent<Rigidbody>().isKinematic = false;
+            CorrigeRigSai();
         }
+    }
+
+    void CorrigeRigEntra()
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
+    void CorrigeRigSai()
+    {
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 }
