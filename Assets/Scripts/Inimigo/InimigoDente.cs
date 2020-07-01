@@ -26,8 +26,8 @@ public class InimigoDente : MonoBehaviour
     {
         distanciaDoPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        VaiAtrasJogador()
-;    }
+        VaiAtrasJogador();
+    }
 
     void VaiAtrasJogador()
     {
@@ -36,11 +36,20 @@ public class InimigoDente : MonoBehaviour
         {
             navMesh.isStopped = true;
             Debug.Log("Atacando");
+            anim.SetTrigger("ataca");
+            anim.SetBool("podeAndar", false);
+            anim.SetBool("paraAtaque", false);
         }
-        else
+        if (distanciaDoPlayer >= 5)
+        {
+            anim.SetBool("paraAtaque", true);
+
+        }
+        if(anim.GetBool("podeAndar"))
         {
             navMesh.isStopped = false;
             navMesh.SetDestination(player.transform.position);
+            anim.ResetTrigger("ataca");
         }
     }
 }
