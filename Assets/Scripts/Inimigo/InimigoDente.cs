@@ -12,6 +12,7 @@ public class InimigoDente : MonoBehaviour
     public float distanciaDoPlayer;
     public float velocidade = 5;
     Animator anim;
+    public int hp = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -89,4 +90,10 @@ public class InimigoDente : MonoBehaviour
     {
         GetComponent<Rigidbody>().isKinematic = false;
     }
+
+    public void LevouDano(int dano)
+    {
+        hp -= dano;
+    }
+
 }

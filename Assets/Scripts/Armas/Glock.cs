@@ -15,6 +15,7 @@ public class Glock : MonoBehaviour
     public GameObject fumaca;
     public GameObject efeitoTiro;
     public GameObject posEfeitoTiro;
+    public GameObject particulaSangue;
 
     public ParticleSystem rastroBala;
     public AudioSource audioArma;
@@ -172,17 +173,22 @@ public class Glock : MonoBehaviour
         if (Physics.Raycast(new Vector3(ray.origin.x + Random.Range(-numeroAleatorioMira, numeroAleatorioMira), ray.origin.y + Random.Range(-numeroAleatorioMira, numeroAleatorioMira), ray.origin.z), 
             Camera.main.transform.forward, out hit))
         {
-            InstanciaEfeitos();
-
-            if(hit.transform.tag == "objArrasta")
+            if(hit.transform.tag == "inimigo")
             {
-                Vector3 direcaoBala = ray.direction;
+                hit.transform.GetComponent<InimigoDente>().LevouDano(15);
+                GameObject particulaCriada = Instantiate(particulaSangue, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                particulaCriada.transform.parent = hit.transform;
+            }
+            else
+            {
+                InstanciaEfeitos();
 
                 if(hit.rigidbody != null)
                 {
-                    hit.rigidbody.AddForceAtPosition(direcaoBala * 500, hit.point);
+                    AdicionaForca(ray, 400);
                 }
             }
+          
         }
 
         yield return new WaitForSeconds(0.3f);
@@ -208,5 +214,11 @@ public class Glock : MonoBehaviour
     {
         audioArma.clip = sonsArma[2];
         audioArma.Play();
+    }
+
+    void AdicionaForca(Ray ray, float forca)
+    {
+        Vector3 direcaoBala = ray.direction;
+        hit.rigidbody.AddForceAtPosition(direcaoBala * forca, hit.point);
     }
 }
