@@ -21,6 +21,9 @@ public class InimigoDente : MonoBehaviour
     public Renderer render;
     public bool invencivel;
 
+    public AudioClip[] sonsMonstro;
+    public AudioSource audioMonstro; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,7 @@ public class InimigoDente : MonoBehaviour
         anim = GetComponent<Animator>();
         ragScript = GetComponent<Ragdoll>();
         render = GetComponentInChildren<Renderer>();
+        audioMonstro = GetComponent<AudioSource>();
 
         invencivel = false;
         estaMorto = false;
@@ -57,6 +61,7 @@ public class InimigoDente : MonoBehaviour
 
             if (hp <= 0 && !estaMorto)
             {
+                MorreSom();
                 render.material.color = Color.white;
                 objDeslisa.SetActive(false);
                 estaMorto = true;
@@ -169,5 +174,31 @@ public class InimigoDente : MonoBehaviour
     {
         invencivel = false;
         anim.speed = 2;
+    }
+
+    public void PassoMonstro()
+    {
+        audioMonstro.volume = 0.1f;
+        audioMonstro.PlayOneShot(sonsMonstro[0]);
+    }
+
+    public void SenteDor()
+    {
+        audioMonstro.volume = 1f;
+        audioMonstro.clip = sonsMonstro[1];
+        audioMonstro.Play();
+    }
+
+    public void GritaSom()
+    {
+        audioMonstro.volume = 1f;
+        audioMonstro.clip = sonsMonstro[2];
+        audioMonstro.Play();
+    }
+    public void MorreSom()
+    {
+        audioMonstro.volume = 1f;
+        audioMonstro.clip = sonsMonstro[3];
+        audioMonstro.Play();
     }
 }
