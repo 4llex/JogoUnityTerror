@@ -17,6 +17,8 @@ public class InimigoDente : MonoBehaviour
 
     public GameObject objDeslisa;
     public bool estaMorto;
+    public bool bravo;
+    public Renderer render;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class InimigoDente : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
         ragScript = GetComponent<Ragdoll>();
+        render = GetComponentInChildren<Renderer>();
 
         estaMorto = false;
         ragScript.DesativaRagdoll();
@@ -40,13 +43,22 @@ public class InimigoDente : MonoBehaviour
             VaiAtrasJogador();
             OhaParaPlayer();
 
+            if(hp <= 50)
+            {
+                bravo = true;
+                render.material.color = Color.red;
+                velocidade = 8;
+            }
+
             if (hp <= 0 && !estaMorto)
             {
+                render.material.color = Color.white;
                 objDeslisa.SetActive(false);
                 estaMorto = true;
                 ParaDeAndar();
                 navMesh.enabled = false;
                 ragScript.AtivaRagdoll();
+
             }
         }
         
@@ -114,6 +126,15 @@ public class InimigoDente : MonoBehaviour
 
     public void LevouDano(int dano)
     {
+        int n;
+
+        n = Random.Range(0, 10);
+
+        if (n % 2 == 0 && !bravo) 
+        {
+            ParaDeAndar();
+        }
+
         ParaDeAndar();
         hp -= dano;
     }
