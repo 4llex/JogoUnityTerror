@@ -16,6 +16,9 @@ public class InimigoRange : MonoBehaviour
     public bool estaMorto;
     public Rigidbody rigid;
 
+    public GameObject pedraPermanente;
+    public GameObject pedraInstancia;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +47,21 @@ public class InimigoRange : MonoBehaviour
                 CorrigeRigEntra();
             }
         }
+    }
+
+    void InstanciaPedra()
+    {
+        pedraPermanente.SetActive(false);
+        GameObject pedra = Instantiate(pedraInstancia, anim.GetBoneTransform(HumanBodyBones.RightHand).transform);
+        pedra.transform.parent = null;
+        pedra.transform.LookAt(player.transform.position);
+        JogaPedra jogaScript = pedra.GetComponent<JogaPedra>();
+        jogaScript.Joga();
+    }
+
+    public void AparecePedraPermanente()
+    {
+        pedraPermanente.SetActive(true);
     }
 
     void OlhaParaPlayer()
