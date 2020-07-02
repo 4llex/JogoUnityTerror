@@ -8,6 +8,7 @@ TagManager:
   - objPega
   - uiManager
   - cabecaDesliza
+  - inimigo
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - 
   - 
   - chao
-  - 
-  - 
+  - personagem
+  - morto
   - 
   - 
   - 

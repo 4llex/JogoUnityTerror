@@ -19,6 +19,7 @@ public class InimigoDente : MonoBehaviour
     public bool estaMorto;
     public bool bravo;
     public Renderer render;
+    public bool invencivel;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class InimigoDente : MonoBehaviour
         ragScript = GetComponent<Ragdoll>();
         render = GetComponentInChildren<Renderer>();
 
+        invencivel = false;
         estaMorto = false;
         ragScript.DesativaRagdoll();
     }
@@ -43,9 +45,12 @@ public class InimigoDente : MonoBehaviour
             VaiAtrasJogador();
             OhaParaPlayer();
 
-            if(hp <= 50)
+            if(hp <= 50 && !bravo)
             {
                 bravo = true;
+                anim.ResetTrigger("levouTiro");
+                ParaDeAndar();
+                anim.CrossFade("scream", 0.2f);
                 render.material.color = Color.red;
                 velocidade = 8;
             }
@@ -132,17 +137,20 @@ public class InimigoDente : MonoBehaviour
 
         if (n % 2 == 0 && !bravo) 
         {
+            anim.SetTrigger("levouTiro");
             ParaDeAndar();
         }
-
-        ParaDeAndar();
-        hp -= dano;
+        
+        if (!invencivel)
+        {
+            hp -= dano;
+        }
+        
     }
 
     void ParaDeAndar()
     {
         navMesh.isStopped = true;
-        anim.SetTrigger("levouTiro");
         anim.SetBool("podeAndar", false);
         CorrigeRigEntra();
     }
@@ -150,5 +158,16 @@ public class InimigoDente : MonoBehaviour
     public void DaDanoPlayer()
     {
         player.GetComponent<MovimentaPersonagem>().hp -= 10;
+    }
+
+    public void FicaInvencivel()
+    {
+        invencivel = true;
+    }
+
+    public void SaiInvencivel()
+    {
+        invencivel = false;
+        anim.speed = 2;
     }
 }

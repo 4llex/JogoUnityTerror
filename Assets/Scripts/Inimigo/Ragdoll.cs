@@ -43,6 +43,7 @@ public class Ragdoll : MonoBehaviour
         {
             ragdollRigids[i].isKinematic = false;
             ragdollColliders[i].enabled = true;
+            ragdollRigids[i].transform.gameObject.layer = 10;
         }
 
         rigid.isKinematic = true;
