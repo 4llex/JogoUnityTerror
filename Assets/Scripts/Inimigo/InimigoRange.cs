@@ -19,6 +19,9 @@ public class InimigoRange : MonoBehaviour
     public GameObject pedraPermanente;
     public GameObject pedraInstancia;
 
+    public bool usaCurvaAnimacao;
+    public CapsuleCollider col;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +30,8 @@ public class InimigoRange : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
         estaMorto = false;
+        usaCurvaAnimacao = false;
+        col = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
@@ -48,7 +53,19 @@ public class InimigoRange : MonoBehaviour
                 anim.CrossFade("Zombie Death", 0.2f);
                 transform.gameObject.layer = 10;
                 anim.applyRootMotion = true;
-                GetComponent<CapsuleCollider>().direction = 2;
+                col.direction = 2;
+                usaCurvaAnimacao = false;
+            }
+
+            if(usaCurvaAnimacao && !anim.IsInTransition(0))
+            {
+                col.height = anim.GetFloat("AlturaCollider");
+                col.center = new Vector3(0, anim.GetFloat("CentroColliderY"), 0);
+            }
+            else
+            {
+                col.height = 2;
+                col.center = new Vector3(0, 1, 0);
             }
         }
     }
@@ -83,9 +100,11 @@ public class InimigoRange : MonoBehaviour
             navMesh.isStopped = true;
             anim.SetBool("joga", true);
             CorrigeRigEntra();
+            usaCurvaAnimacao = true;
         }
         else
         {
+            pedraPermanente.SetActive(false);
             anim.SetBool("joga", false);
             navMesh.isStopped = false;
             navMesh.SetDestination(player.transform.position);
