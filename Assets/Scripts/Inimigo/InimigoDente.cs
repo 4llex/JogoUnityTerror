@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using BASA;
 
 public class InimigoDente : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class InimigoDente : MonoBehaviour
     public int hp = 100;
     Ragdoll ragScript;
 
+    public GameObject objDeslisa;
     public bool estaMorto;
 
     // Start is called before the first frame update
@@ -32,18 +33,23 @@ public class InimigoDente : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanciaDoPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-        VaiAtrasJogador();
-        OhaParaPlayer();
-
-        if( hp <= 0 && !estaMorto)
+        if (!estaMorto)
         {
-            estaMorto = true;
-            ParaDeAndar();
-            ragScript.AtivaRagdoll();
-            this.enabled = false;
+            distanciaDoPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+            VaiAtrasJogador();
+            OhaParaPlayer();
+
+            if (hp <= 0 && !estaMorto)
+            {
+                objDeslisa.SetActive(false);
+                estaMorto = true;
+                ParaDeAndar();
+                navMesh.enabled = false;
+                ragScript.AtivaRagdoll();
+            }
         }
+        
     }
 
     void OhaParaPlayer()
@@ -108,12 +114,20 @@ public class InimigoDente : MonoBehaviour
 
     public void LevouDano(int dano)
     {
+        ParaDeAndar();
         hp -= dano;
     }
 
     void ParaDeAndar()
     {
         navMesh.isStopped = true;
+        anim.SetTrigger("levouTiro");
         anim.SetBool("podeAndar", false);
+        CorrigeRigEntra();
+    }
+
+    public void DaDanoPlayer()
+    {
+        player.GetComponent<MovimentaPersonagem>().hp -= 10;
     }
 }

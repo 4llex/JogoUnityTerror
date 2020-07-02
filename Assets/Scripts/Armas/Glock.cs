@@ -175,10 +175,21 @@ public class Glock : MonoBehaviour
         {
             if(hit.transform.tag == "inimigo")
             {
-                if (hit.transform.GetComponent<InimigoDente>())
+
+                if (hit.rigidbody != null && hit.transform.GetComponentInParent<InimigoDente>().estaMorto)
+                {
+                    AdicionaForca(ray, 900);
+                }
+                else if (hit.transform.GetComponent<InimigoDente>())
                 {
                     hit.transform.GetComponent<InimigoDente>().LevouDano(15);
                 }
+                else if (hit.transform.GetComponentInParent<InimigoDente>())
+                {
+                    hit.transform.GetComponentInParent<InimigoDente>().LevouDano(15);
+                }
+
+            
                 GameObject particulaCriada = Instantiate(particulaSangue, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
                 particulaCriada.transform.parent = hit.transform;
             }
