@@ -45,6 +45,10 @@ public class InimigoRange : MonoBehaviour
                 navMesh.isStopped = true;
                 navMesh.enabled = true;
                 CorrigeRigEntra();
+                anim.CrossFade("Zombie Death", 0.2f);
+                transform.gameObject.layer = 10;
+                anim.applyRootMotion = true;
+                GetComponent<CapsuleCollider>().direction = 2;
             }
         }
     }
@@ -114,5 +118,10 @@ public class InimigoRange : MonoBehaviour
     void CorrigeRigSai()
     {
         rigid.isKinematic = false;
+    }
+
+    public void LevouDano(int dano)
+    {
+        hp -= dano;
     }
 }

@@ -33,5 +33,8 @@ public class JogaPedra : MonoBehaviour
             player.GetComponent<MovimentaPersonagem>().hp -= 10;
             Destroy(this.gameObject);
         }
+
+        Destroy(this.gameObject);
+
     }
 }

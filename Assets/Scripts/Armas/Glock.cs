@@ -176,19 +176,14 @@ public class Glock : MonoBehaviour
             if(hit.transform.tag == "inimigo")
             {
 
-                if (hit.rigidbody != null && hit.transform.GetComponentInParent<InimigoDente>().estaMorto)
+                if(hit.transform.GetComponent<InimigoDente>()  || hit.transform.GetComponent<InimigoRange>())
+                {
+                    inimigoVerificadorDano();
+                }
+                else if(hit.rigidbody != null && hit.transform.GetComponentInParent<InimigoDente>())
                 {
                     AdicionaForca(ray, 900);
                 }
-                else if (hit.transform.GetComponent<InimigoDente>())
-                {
-                    hit.transform.GetComponent<InimigoDente>().LevouDano(15);
-                }
-                else if (hit.transform.GetComponentInParent<InimigoDente>())
-                {
-                    hit.transform.GetComponentInParent<InimigoDente>().LevouDano(15);
-                }
-
             
                 GameObject particulaCriada = Instantiate(particulaSangue, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
                 particulaCriada.transform.parent = hit.transform;
@@ -207,6 +202,18 @@ public class Glock : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
         estaAtirando = false;
+    }
+
+    void inimigoVerificadorDano()
+    {
+        if (hit.transform.GetComponent<InimigoDente>())
+        {
+            hit.transform.GetComponent<InimigoDente>().LevouDano(15);
+        }
+        else if(hit.transform.GetComponent<InimigoRange>())
+        {
+            hit.transform.GetComponent<InimigoRange>().LevouDano(15);
+        }
     }
 
     void InstanciaEfeitos()
