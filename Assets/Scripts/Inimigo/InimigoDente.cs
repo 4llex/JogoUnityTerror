@@ -68,7 +68,7 @@ public class InimigoDente : MonoBehaviour
                 ParaDeAndar();
                 navMesh.enabled = false;
                 ragScript.AtivaRagdoll();
-
+                StartCoroutine(ragScript.SomeMorto());
             }
         }
         

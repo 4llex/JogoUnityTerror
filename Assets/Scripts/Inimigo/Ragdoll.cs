@@ -58,4 +58,13 @@ public class Ragdoll : MonoBehaviour
         GetComponent<Animator>().enabled = false;
         this.enabled = false;
     }
+
+    public IEnumerator SomeMorto()
+    {
+        yield return new WaitForSeconds(10);
+        rigid.isKinematic = false;
+        DesativaRagdoll();
+        yield return new WaitForSeconds(4);
+        Destroy(this.gameObject);
+    }
 }

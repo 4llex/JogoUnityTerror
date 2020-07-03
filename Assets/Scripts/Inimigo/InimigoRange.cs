@@ -22,6 +22,10 @@ public class InimigoRange : MonoBehaviour
     public bool usaCurvaAnimacao;
     public CapsuleCollider col;
 
+    public GameObject cabecaDesliza;
+    public AudioSource audioS;
+    public AudioClip[] sons;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,7 @@ public class InimigoRange : MonoBehaviour
         estaMorto = false;
         usaCurvaAnimacao = false;
         col = GetComponent<CapsuleCollider>();
+        audioS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -46,6 +51,9 @@ public class InimigoRange : MonoBehaviour
 
             if(hp <= 0)
             {
+                audioS.clip = sons[0];
+                audioS.Play();
+                cabecaDesliza.SetActive(false);
                 estaMorto = true;
                 navMesh.isStopped = true;
                 navMesh.enabled = true;
@@ -68,6 +76,16 @@ public class InimigoRange : MonoBehaviour
                 col.center = new Vector3(0, 1, 0);
             }
         }
+    }
+
+    IEnumerator SomeMorto()
+    {
+        yield return new WaitForSeconds(10);
+        col.enabled = false;
+        rigid.isKinematic = false;
+        anim.enabled = false;
+        yield return new WaitForSeconds(3);
+        Destroy(this.gameObject);
     }
 
     void InstanciaPedra()
@@ -143,4 +161,10 @@ public class InimigoRange : MonoBehaviour
     {
         hp -= dano;
     }
+     
+    public void SomPassos()
+    {
+        audioS.PlayOneShot(sons[1]);
+    }
+   
 }

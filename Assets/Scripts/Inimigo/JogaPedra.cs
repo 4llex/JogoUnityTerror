@@ -10,6 +10,7 @@ public class JogaPedra : MonoBehaviour
     public float hVelocidade = 15;
     public float vVelocidade = 4;
     GameObject player;
+    public GameObject somChoca;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +32,17 @@ public class JogaPedra : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             player.GetComponent<MovimentaPersonagem>().hp -= 10;
-            Destroy(this.gameObject);
         }
 
-        Destroy(this.gameObject);
+        CriaSomChoca();
 
+    }
+
+    void CriaSomChoca()
+    {
+        GameObject som = Instantiate(somChoca, transform);
+        som.transform.parent = null;
+        Destroy(this.gameObject);
+        Destroy(som, 2);
     }
 }
