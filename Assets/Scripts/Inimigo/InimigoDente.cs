@@ -162,7 +162,7 @@ public class InimigoDente : MonoBehaviour
 
     public void DaDanoPlayer()
     {
-        player.GetComponent<MovimentaPersonagem>().hp -= 10;
+        player.GetComponent<MovimentaPersonagem>().hp -= 5;
     }
 
     public void FicaInvencivel()

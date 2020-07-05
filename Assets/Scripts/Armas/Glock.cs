@@ -208,11 +208,11 @@ public class Glock : MonoBehaviour
     {
         if (hit.transform.GetComponent<InimigoDente>())
         {
-            hit.transform.GetComponent<InimigoDente>().LevouDano(15);
+            hit.transform.GetComponent<InimigoDente>().LevouDano(25);
         }
         else if(hit.transform.GetComponent<InimigoRange>())
         {
-            hit.transform.GetComponent<InimigoRange>().LevouDano(15);
+            hit.transform.GetComponent<InimigoRange>().LevouDano(25);
         }
     }
 
